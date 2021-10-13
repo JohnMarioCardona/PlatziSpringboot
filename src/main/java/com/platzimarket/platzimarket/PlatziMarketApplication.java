@@ -1,6 +1,7 @@
 package com.platzimarket.platzimarket;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -17,8 +18,11 @@ public class PlatziMarketApplication implements CommandLineRunner{
 	private ProductCrudRepository productCrudRepository;
 	
 	public List<Producto> getAll(){
-		return (List<Producto>) productCrudRepository.findAll();
+		return (List<Producto>) productCrudRepository.findByIdCategoriaOrderByNombreAsc(1);
 	} 
+	public Optional<List<Producto>> getEscasos(int cantidad, boolean estado){
+		return productCrudRepository.findByCantidadStockLessThanAndEstado(cantidad, estado);
+	}
 	 
 	public static void main(String[] args) {
 		SpringApplication.run(PlatziMarketApplication.class, args);
@@ -27,7 +31,9 @@ public class PlatziMarketApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
-		System.out.println(getAll().get(0).getNombre());
+		
+		System.out.println(getAll().get(1).getNombre());
+		System.out.println(getEscasos(130,true).get().get(1).getNombre());
 	}
 
 }
