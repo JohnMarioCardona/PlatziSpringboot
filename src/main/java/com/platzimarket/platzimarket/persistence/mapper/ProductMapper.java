@@ -10,20 +10,6 @@ import org.mapstruct.Mappings;
 import com.platzimarket.platzimarket.domain.Product;
 import com.platzimarket.platzimarket.persistence.entity.Producto;
 
-/*
- * 
- *
- * private int productId;
-	private String name;
-	private int categoryId;
-	private double price;
-	private int stock;
-	private boolean active;
-	private Category category;
- * 
- * */
-
-
 @Mapper(componentModel = "spring", uses = {CategoryMapper.class})
 public interface ProductMapper {
 	@Mappings({
@@ -40,5 +26,6 @@ public interface ProductMapper {
 	
 	@InheritInverseConfiguration
 	@Mapping(target = "codigoBarras",ignore = true)
+	@Mapping(target = "compras", ignore = true)
 	Producto toProducto(Product product);
 }
